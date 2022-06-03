@@ -11,6 +11,9 @@ use L5Swagger\GeneratorFactory;
  *   version="1.0.0@dev",
  *   title="Secretlab Store API",
  *   description="New structure for OPEN API"
+ * ),
+ * @OA\Server(
+ *   url=L5_SWAGGER_CONST_HOST
  * )
  */
 class ApiController extends Controller
