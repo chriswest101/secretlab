@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::group(
+    ['domain' => 'api.'.env('APP_URL')],
+    function () {
+        Route::get('/documentation', [ApiController::class, 'documentation']);
+        Route::get('/', [ApiController::class, 'documentation'])->name('api.web.documentation');
+    }
+);

@@ -1,0 +1,153 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Secretlab Store API",
+        "description": "New structure for OPEN API",
+        "version": "1.0.0@dev"
+    },
+    "paths": {
+        "/api/object": {
+            "get": {
+                "tags": [
+                    "Store"
+                ],
+                "summary": "Get a stored key value pair",
+                "operationId": "store",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "StatusCode",
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/StoreSchema"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/object/{myKey}": {
+            "get": {
+                "tags": [
+                    "Store"
+                ],
+                "summary": "Get a stored key value pair",
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "myKey",
+                        "in": "path",
+                        "description": "Key to search by",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "StatusCode",
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/StoreSchema"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/object/get_all_records": {
+            "get": {
+                "tags": [
+                    "Store"
+                ],
+                "summary": "Get all stored key value pairs",
+                "operationId": "all",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "StatusCode",
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/StoreSchema"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreSchema": {
+                "properties": {
+                    "createdAt": {
+                        "description": "Created Date of Store",
+                        "type": "string",
+                        "example": "2022-06-04 23:45:12"
+                    },
+                    "mykey": {
+                        "description": "Key Of Store",
+                        "type": "string",
+                        "example": "MyKey"
+                    },
+                    "value": {
+                        "description": "Value Of Store",
+                        "type": "string",
+                        "example": "SomeValue"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

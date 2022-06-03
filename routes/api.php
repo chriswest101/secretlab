@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\StoreController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+$route = app(Router::class);
+
+Route::prefix('object')->group(static function () use ($route) {
+    $route->get('/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
+    $route->get('/{mykey}', [StoreController::class, 'get'])->name('secretlab.get');
+    $route->post('/', [StoreController::class, 'store'])->name('secretlab.store');
 });
