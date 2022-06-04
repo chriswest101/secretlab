@@ -26,6 +26,6 @@ class StoreRepository implements RepositoryInterface
 
     public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
     {
-        return Store::where('mykey', $key)->where('created_at', '<=', $timestamp->toDateTimeString())->orderBy('created_at', 'desc')->first();
+        return Store::where('mykey', $key)->where('created_at', '<=', $timestamp->format('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->first();
     }
 }
