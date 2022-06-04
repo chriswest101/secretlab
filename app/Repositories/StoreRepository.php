@@ -9,23 +9,30 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StoreRepository implements RepositoryInterface
 {
+    protected $model;
+
+    public function __construct(Store $store)
+    {
+        $this->model = $store;
+    }
+
     public function getAll(): Collection
     {
-        return Store::all();
+        return $this->model->all();
     }
 
     public function create(array $details): Store
     {
-        return Store::create($details);
+        return $this->model->create($details);
     }
 
     public function getByKey(string $key): ?Store
     {
-        return Store::where('mykey', $key)->orderBy('created_at', 'desc')->first();
+        return $this->model->where('mykey', $key)->orderBy('created_at', 'desc')->first();
     }
 
     public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
     {
-        return Store::where('mykey', $key)->where('created_at', '<=', $timestamp->format('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->first();
+        return $this->model->where('mykey', $key)->where('created_at', '<=', $timestamp->format('Y-m-d H:i:s'))->orderBy('created_at', 'desc')->first();
     }
 }

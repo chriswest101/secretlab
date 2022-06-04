@@ -27,8 +27,8 @@ class IsUnixTimestamp implements Rule
     {
         if ($value) {
             return ((string) (int) $value === $value) 
-               && ($value <= 2147483647)
-               && ($value >= -2147483648);
+               && ($value <= strtotime("now"))
+               && ($value >= 0);
         }
 
         return true;
@@ -41,6 +41,6 @@ class IsUnixTimestamp implements Rule
      */
     public function message()
     {
-        return 'Timestamp is not a valid timestamp.';
+        return 'Timestamp is not a valid timestamp. It must be in the past and a valid Unix Timestamp.';
     }
 }
