@@ -27,7 +27,7 @@ class StoreService
     }
 
     public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
-    {dd($timestamp);
+    {
         return $this->storeRepository->getByKeyAndTimestamp($key, $timestamp);
     }
 
