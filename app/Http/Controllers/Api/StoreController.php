@@ -99,7 +99,7 @@ class StoreController extends ApiBaseController
         }
 
         if ($request->get('timestamp')) {
-            $data = $this->storeService->getByKeyAndTimestamp($myKey, Carbon::createFromTimestampUTC($request->get('timestamp')));
+            $data = $this->storeService->getByKeyAndTimestamp($myKey, Carbon::createFromTimestamp($request->get('timestamp')));
         } else {
             $data = $this->storeService->getByKey($myKey);
         }
