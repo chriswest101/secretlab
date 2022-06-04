@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Services\StoreService;
+use App\Services\ValidationService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -11,18 +12,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 class StoreController extends ApiBaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected StoreService $storeService;
+    protected ValidationService $validationService;
 
-    public function __construct(StoreService $storeService)
+    public function __construct(StoreService $storeService, ValidationService $validationService)
     {
         $this->storeService = $storeService;
+        $this->validationService = $validationService;
     }
 
     /**
@@ -42,7 +43,7 @@ class StoreController extends ApiBaseController
      */
     public function store(Request $request): JsonResponse
     {
-        $messageBag = $this->validate($request->all());
+        $messageBag = $this->validationService->storeValidate($request->all());
         if ($messageBag->isNotEmpty()) {
             return $this->jsonResponse(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -86,6 +87,17 @@ class StoreController extends ApiBaseController
      */
     public function get(string $myKey, Request $request): JsonResponse
     {
+        $messageBag = $this->validationService->getValidate($request->all());
+        if ($messageBag->isNotEmpty()) {
+            return $this->jsonResponse(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [
+                    'message' => 'Validation failed',
+                    'errors' => Arr::collapse($messageBag->toArray()),
+                ]
+            );
+        }
+
         if ($request->get('timestamp')) {
             $data = $this->storeService->getByKeyAndTimestamp($myKey, Carbon::createFromTimestampUTC($request->get('timestamp')));
         } else {
@@ -123,16 +135,5 @@ class StoreController extends ApiBaseController
             $data,
             'Success'
         );
-    }
-
-    private function validate(array $data): MessageBag
-    {
-        $rules = [
-            "mykey" => "required|max:255",
-            "value" => "required|max:65535",
-            "timestamp" => "sometimes|required|numeric",
-        ];
-
-        return Validator::make($data, $rules)->errors();
     }
 }

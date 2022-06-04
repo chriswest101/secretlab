@@ -21,7 +21,7 @@ class StoreRepository implements RepositoryInterface
 
     public function getByKey(string $key): ?Store
     {
-        return Store::where('mykey', $key)->firstOrFail();
+        return Store::where('mykey', $key)->first();
     }
 
     public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
