@@ -26,12 +26,12 @@ class StoreService
         return $this->storeRepository->create($details);
     }
 
-    public function getByKeyAndTimestamp(string $key, Carbon $timestamp): Store
+    public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
     {
         return $this->storeRepository->getByKeyAndTimestamp($key, $timestamp);
     }
 
-    public function getByKey(string $key): Store
+    public function getByKey(string $key): ?Store
     {
         return $this->storeRepository->getByKey($key);
     }

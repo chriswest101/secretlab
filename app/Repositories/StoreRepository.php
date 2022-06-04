@@ -19,12 +19,12 @@ class StoreRepository implements RepositoryInterface
         return Store::create($details);
     }
 
-    public function getByKey(string $key): Store
+    public function getByKey(string $key): ?Store
     {
         return Store::where('mykey', $key)->firstOrFail();
     }
 
-    public function getByKeyAndTimestamp(string $key, Carbon $timestamp): Store
+    public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
     {
         return Store::where('mykey', $key)->where('created_at', '<=', $timestamp->toDateTimeString())->orderBy('created_at', 'desc')->first();
     }
