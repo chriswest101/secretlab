@@ -58,7 +58,7 @@ class IsUnixTimestampTest extends TestCase
     public function test_get_validate_timestamp_is_before_epoch()
     {
         // Arrange
-        $value = TestHelper::getTestInt(-1, -1);
+        $value = -1;
         $rule = new IsUnixTimestamp();
 
         // Act
@@ -74,13 +74,13 @@ class IsUnixTimestampTest extends TestCase
     public function test_get_validate_timestamp_is_after_epoch()
     {
         // Arrange
-        $value = TestHelper::getTestInt(0, 0);
+        $value = 0;
         $rule = new IsUnixTimestamp();
 
         // Act
         $result = $rule->passes("", $value);
 
         // Assert
-        $this->assertTrue($result);
+        $this->assertFalse($result);
     }
 }

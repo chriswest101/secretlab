@@ -25,10 +25,10 @@ class IsUnixTimestamp implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ($value) {
+        if ($value !== null) {
             return ((string) (int) $value === $value) 
                && ($value <= strtotime("now"))
-               && ($value >= 0);
+               && ($value > 0);
         }
 
         return true;

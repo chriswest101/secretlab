@@ -260,7 +260,9 @@ class ValidationServiceTest extends TestCase
         $result = $service->getValidate($details);
 
         // Assert
-        $this->assertEmpty($result->messages());
+        $this->assertNotEmpty($result->messages());
+        $this->assertArrayHasKey("timestamp", $result->messages());
+        $this->assertSame("Timestamp is not a valid timestamp. It must be in the past and a valid Unix Timestamp.", $result->messages()['timestamp'][0]);
     }
 }
 
