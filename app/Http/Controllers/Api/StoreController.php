@@ -40,8 +40,8 @@ class StoreController extends ApiBaseController
     public function store(Request $request): JsonResponse
     {
         $validatedDetails = $request->validate([
-            "mykey" => "required",
-            "value" => "required",
+            "mykey" => "required|max:255",
+            "value" => "required|max:65535",
         ]);
 
         $data = $this->storeService->create($validatedDetails);
@@ -78,7 +78,7 @@ class StoreController extends ApiBaseController
     public function get(string $myKey, Request $request): JsonResponse
     {
         $validatedDetails = $request->validate([
-            "mykey" => "required",
+            "mykey" => "required|max:255",
             "timestamp" => "sometimes|required|numeric",
         ]);
 

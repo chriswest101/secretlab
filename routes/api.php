@@ -19,6 +19,6 @@ $route = app(Router::class);
 
 Route::prefix('object')->group(static function () use ($route) {
     $route->get('/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
-    $route->get('/{mykey}', [StoreController::class, 'get'])->name('secretlab.get');
+    $route->get('/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
     $route->post('/', [StoreController::class, 'store'])->name('secretlab.store');
 });
