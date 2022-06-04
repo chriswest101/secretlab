@@ -21,7 +21,7 @@ class StoreService
         return $this->storeRepository->getAll();
     }
 
-    public function create(array $details): Store
+    public function store(array $details): Store
     {
         return $this->storeRepository->create($details);
     }

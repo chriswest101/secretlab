@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 $route = app(Router::class);
 
-Route::prefix('object')->group(static function () use ($route) {
-    $route->get('/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
-    $route->get('/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
-    $route->post('/', [StoreController::class, 'store'])->name('secretlab.store');
-});
+$route->get('object/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
+$route->get('object/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
+$route->post('object/', [StoreController::class, 'store'])->name('secretlab.store');
