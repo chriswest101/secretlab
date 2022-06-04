@@ -53,7 +53,7 @@ class StoreController extends ApiBaseController
             );
         }
 
-        $data = $this->storeService->create($request->all());
+        $data = $this->storeService->store($request->all());
 
         return $this->jsonResponse(
             Response::HTTP_OK,
@@ -86,21 +86,10 @@ class StoreController extends ApiBaseController
      */
     public function get(string $myKey, Request $request): JsonResponse
     {
-        $messageBag = $this->validate($request->all());
-        if ($messageBag->isNotEmpty()) {
-            return $this->jsonResponse(
-                Response::HTTP_UNPROCESSABLE_ENTITY,
-                [
-                    'message' => 'Validation failed',
-                    'errors' => Arr::collapse($messageBag->toArray()),
-                ]
-            );
-        }
-
         if ($request->get('timestamp')) {
-            $data = $this->storeService->getByKeyAndTimestamp($request->get('mykey'), Carbon::createFromTimestampUTC($request->get('timestamp')));
+            $data = $this->storeService->getByKeyAndTimestamp($myKey, Carbon::createFromTimestampUTC($request->get('timestamp')));
         } else {
-            $data = $this->storeService->getByKey($request->get('mykey'));
+            $data = $this->storeService->getByKey($myKey);
         }
 
         return $this->jsonResponse(
