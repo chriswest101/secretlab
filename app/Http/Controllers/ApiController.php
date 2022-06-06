@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use L5Swagger\ConfigFactory;
 use L5Swagger\GeneratorFactory;
 
 /**
@@ -19,17 +18,15 @@ use L5Swagger\GeneratorFactory;
 class ApiController extends Controller
 {
     protected GeneratorFactory $generatorFactory;
-    private ConfigFactory $configFactory;
 
-    public function __construct(GeneratorFactory $generatorFactory, ConfigFactory $configFactory)
+    public function __construct(GeneratorFactory $generatorFactory)
     {
         $this->generatorFactory = $generatorFactory;
-        $this->configFactory = $configFactory;
     }
 
     public function documentation()
     {
-        $generator = $this->generatorFactory->make('default');
+        $generator = $this->generatorFactory->make('secretlab');
         $generator->generateDocs();
 
         return view('api::documentation');
