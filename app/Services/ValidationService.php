@@ -11,8 +11,8 @@ class ValidationService
     public function storeValidate(array $details): MessageBag
     {
         $rules = [
-            "mykey" => "required|max:255",
-            "value" => "required|max:65535",
+            "mykey" => "required|max:255|string",
+            "value" => "required|max:65535|string",
         ];
 
         return Validator::make($details, $rules)->errors();

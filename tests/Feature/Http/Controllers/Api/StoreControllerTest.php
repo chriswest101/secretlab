@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
@@ -173,46 +174,6 @@ class StoreControllerTest extends TestCase
                 'value' => $store2->value,
                 'created_at' => $store2->created_at,
                 'updated_at' => $store2->updated_at,
-            ]
-            
-        ]), $response->baseResponse->getContent());
-    }
-
-    /**
-     * @group Feature
-     */
-    public function test_get_by_key_route_without_timestamp_and_multiple_already_exist_and_the_correct_pair_is_returned()
-    {
-        // Arrange
-        $key = "testkey";
-        $store1 = Store::create([
-            'mykey' => $key,
-            'value' => "1",
-        ]);
-        $store2 = Store::create([
-            'mykey' => $key,
-            'value' => "2",
-        ]);
-        $store3 = Store::create([
-            'mykey' => $key,
-            'value' => "3",
-        ]);
-
-        // Act
-        $response = $this->get(route("secretlab.get", ["myKey" => $key]));
-
-        // Assert
-        $response->assertStatus(Response::HTTP_OK);
-        $this->assertJson($response->baseResponse->getContent());
-        $this->assertEquals(json_encode([
-            'status_code' => Response::HTTP_OK,
-            'message' => "Success",
-            'data' => [
-                'id' => $store1->id,
-                'mykey' => $store1->mykey,
-                'value' => $store1->value,
-                'created_at' => $store1->created_at,
-                'updated_at' => $store1->updated_at,
             ]
             
         ]), $response->baseResponse->getContent());
