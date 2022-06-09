@@ -104,6 +104,14 @@ class StoreController extends ApiBaseController
             $data = $this->storeService->getByKey($myKey);
         }
 
+        if (!$data) {
+            return $this->jsonResponse(
+                Response::HTTP_NOT_FOUND,
+                null,
+                'Resource Not Found'
+            );
+        }
+
         return $this->jsonResponse(
             Response::HTTP_OK,
             $data,

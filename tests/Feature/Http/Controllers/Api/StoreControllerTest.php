@@ -67,6 +67,28 @@ class StoreControllerTest extends TestCase
 
     /**
      * @group Feature
+     */
+    public function test_get_by_key_route_returns_404()
+    {
+        // Arrange
+        $store = Store::factory()->create();
+
+        // Act
+        $response = $this->get(route("secretlab.get", ["myKey" => "UnknownKey"]));
+
+        // Assert
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+        $this->assertJson($response->baseResponse->getContent());
+        $this->assertEquals(json_encode([
+            'status_code' => Response::HTTP_NOT_FOUND,
+            'message' => "Resource Not Found",
+            'data' => null
+            
+        ]), $response->baseResponse->getContent());
+    }
+
+    /**
+     * @group Feature
      * @dataProvider timestampCases
      */
     public function test_get_by_key_route_with_invalid_timestamp($timestamp)
