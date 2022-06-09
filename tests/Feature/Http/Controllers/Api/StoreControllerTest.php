@@ -32,7 +32,7 @@ class StoreControllerTest extends TestCase
         $this->assertJson($response->baseResponse->getContent());
         $this->assertEquals(json_encode([
             'status_code' => Response::HTTP_OK,
-            'message' => "Success",
+            'message' => "Fail",
             'data' => [[
                 'id' => $store->id,
                 'mykey' => $store->mykey,
