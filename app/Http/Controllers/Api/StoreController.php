@@ -43,7 +43,8 @@ class StoreController extends ApiBaseController
      */
     public function store(Request $request): JsonResponse
     {
-        $messageBag = $this->validationService->storeValidate($request->all());
+        $data = $this->validationService->getKeyValuePair($request->all());
+        $messageBag = $this->validationService->storeValidate($data);
         if ($messageBag->isNotEmpty()) {
             return $this->jsonResponse(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -54,7 +55,7 @@ class StoreController extends ApiBaseController
             );
         }
 
-        $data = $this->storeService->store($request->all());
+        $data = $this->storeService->store($data);
 
         return $this->jsonResponse(
             Response::HTTP_OK,

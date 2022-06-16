@@ -26,4 +26,14 @@ class ValidationService
 
         return Validator::make($details, $rules)->errors();
     }
+
+    public function getKeyValuePair(array $details)
+    {
+        $key = array_key_first($details);
+        $value = $details[$key];
+        return [
+            'mykey' => $key,
+            'value' => $value,
+        ];
+    }
 }
