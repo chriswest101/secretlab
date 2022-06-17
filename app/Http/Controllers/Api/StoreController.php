@@ -27,11 +27,16 @@ class StoreController extends ApiBaseController
     }
 
     /**
-     * @OA\Get(
+     * @OA\Post(
      *     operationId="store",
      *     tags={"Store"},
-     *     summary="Get a stored key value pair",
+     *     summary="Store key value pair",
      *     path="/api/object",
+     *     @OA\RequestBody(
+     *       required=true,
+     *       description="Form request detail",
+     *        @OA\JsonContent(type="object",ref="#/components/schemas/StoreKeyValuePairSchema"),
+     *     ),
      *     @OA\Response(response=200, description="Success",
      *       @OA\JsonContent(
      *         @OA\Property(property="status_code", type="string", description="StatusCode", example="200"),
