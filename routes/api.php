@@ -16,6 +16,8 @@ use Illuminate\Routing\Router;
 
 $route = app(Router::class);
 
-$route->get('object/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
-$route->get('object/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
+$route->middleware(['validate-get'])->group(function () use ($route) {
+    $route->get('object/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
+    $route->get('object/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
+});
 $route->post('object/', [StoreController::class, 'store'])->name('secretlab.store');
