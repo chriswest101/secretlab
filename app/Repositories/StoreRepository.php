@@ -6,6 +6,7 @@ use App\Interfaces\RepositoryInterface;
 use App\Models\Store;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class StoreRepository implements RepositoryInterface
 {
@@ -28,7 +29,9 @@ class StoreRepository implements RepositoryInterface
 
     public function getByKey(string $key): ?Store
     {
-        return $this->model->where('mykey', $key)->orderBy('created_at', 'desc')->first();
+        return Cache::remember('keyvalues', 60, function () use ($key) {
+            return $this->model->where('mykey', $key)->orderBy('created_at', 'desc')->first();
+        });
     }
 
     public function getByKeyAndTimestamp(string $key, Carbon $timestamp): ?Store
