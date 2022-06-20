@@ -7,6 +7,7 @@ use App\Models\Store;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use Tests\TestHelper;
@@ -15,6 +16,7 @@ class StoreControllerTest extends TestCase
 {
     use DatabaseMigrations;
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     /**
      * @group Feature
