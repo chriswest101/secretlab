@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\StoreController;
+use App\Http\Middleware\AuthenticateGetEndpoints;
 use Illuminate\Routing\Router;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Routing\Router;
 
 $route = app(Router::class);
 
-$route->middleware(['validate-get'])->group(function () use ($route) {
+$route->middleware([AuthenticateGetEndpoints::class])->group(function () use ($route) {
     $route->get('object/get_all_records', [StoreController::class, 'all'])->name('secretlab.all');
     $route->get('object/{myKey}', [StoreController::class, 'get'])->name('secretlab.get');
 });
